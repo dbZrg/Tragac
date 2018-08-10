@@ -3,9 +3,9 @@ import numpy as np
 def mapa():
     mapa = np.array(range(36)).reshape(6,6)
     print(mapa)
-    mapa_str = np.chararray((6,6))
-    mapa_str[:] = ' '
-    start = int(input("Upisi broj gdje zelis da bude start:"))
+    mapa_str = np.chararray((6,6), itemsize=3)
+    mapa_str[:] = "   "
+   
     cilj = int(input("Upisi broj gdje zelis da bude cilj:"))
     zid_lokacija = input("Upisi na kojim brojevima zelis da budu prepreke/zid (npr. :1 7 13 19 25) :").split(" ")
 
@@ -15,13 +15,11 @@ def mapa():
             for x in range(6):
                 if mapa[z, x] == i:
                     mapa[z, x] = 99
-                    mapa_str[z,x] = '*'
+                    mapa_str[z,x] = "***"
                 if mapa[z,x] == cilj:
-                    mapa_str[z,x] = 'cilj'
-                if mapa[z,x] == start:
-                    mapa_str[z,x] = 'start'
+                    mapa_str[z,x] = "cilj"
     print(mapa_str)
-    return mapa,zid,cilj,start,mapa_str
+    return mapa,zid,cilj,mapa_str
 
 def index_u_akciju(izabrani_potez,stanje):
     if izabrani_potez == 0:
@@ -135,15 +133,12 @@ Q=Q/np.max(Q)
 print (Q)
 print ("Trening gotov")
 
-
-pocetno_stanje = mapa[3]
-
 while 1 :
-    print ("------Mapa-----", "zid:* ")
+    print ("-Mapa-", "zid:* ")
     print (mapa[0])
-    mapa[4]
-    
-    
+    pocetno_stanje = int(input("Upisi broj gdje zelis da bude start:     (99 za izlaz iz programa)"))
+    if pocetno_stanje == 99:
+        break
     #Koristenje Q tablice
     koraci = 0
     put = [pocetno_stanje]
@@ -162,8 +157,7 @@ while 1 :
     print ("Koraka do cilja:",koraci)
     print ("Najkraci put:",put)
 
-    if pocetno_stanje == cilj:
-        break
+    
 
 
 
